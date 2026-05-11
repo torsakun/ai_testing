@@ -13,17 +13,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    
+    # 1. ติดตั้ง Node พร้อมเปิดระบบ Cache ของ npm
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+        cache: 'npm' # <--- ตัวนี้จะช่วยจำ NPM Dependencies ไว้
+        
     - name: Install dependencies
       run: npm install
+      
+    # 2. ทำระบบ Cache สำหรับ Browser ของ Playwright (โหลดนานสุดคืออันนี้)
+    - name: Cache Playwright Browsers
+      uses: actions/cache@v4
+      id: playwright-cache
+      with:
+        path: ~/.cache/ms-playwright
+        key: ${{ runner.os }}-playwright-${{ hashFiles('**/package.json') }}
+        
     - name: Install Playwright Browsers
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: npx playwright install --with-deps
+      
     - name: Run Playwright tests
       env:
-        # รับค่า Run ID จากเว็บเรา
         QASE_RUN_ID: ${{ github.event.inputs.run_id }}
-        # ชี้เป้า URL ของ Webhook มาที่เซิร์ฟเวอร์ VPS ของเรา
         QASE_WEBHOOK_URL: 'http://164.68.113.171:3000/api/webhooks/playwright/reporter'
       run: npx playwright test
