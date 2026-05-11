@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 
 test('Create test case with maximum title length', async ({ page }) => {
-  // Step 1: Navigate to the Add Test Case page
-  await page.goto('TODO_ADD_TEST_CASE_PAGE_URL');
+  // Navigate to the Add Test Case page
+  await page.goto('http://164.68.113.171:3000');
 
-  // Implement further actions here if needed, based on additional steps
-  // Use semantic locators for elements when interactions are necessary
+  // No specific assertion required as per the manual step
+  // Step 1: เข้าหน้า Add Test Case (Expected: N/A)
 });
