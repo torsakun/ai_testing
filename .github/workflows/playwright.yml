@@ -42,3 +42,13 @@ jobs:
         QASE_RUN_ID: ${{ github.event.inputs.run_id }}
         QASE_WEBHOOK_URL: 'http://164.68.113.171:3000/api/webhooks/playwright/reporter'
       run: npx playwright test ${{ github.event.inputs.case_ids }}
+
+    - name: Zip Playwright Report
+      if: always()
+      run: zip -r report.zip playwright-report/
+    
+    - name: Upload Report to Qase
+      if: always()
+      run: |
+        curl -X POST -F "file=@report.zip" http://164.68.113.171:3000/api/runs/${{ github.event.inputs.run_id }}/report
+
