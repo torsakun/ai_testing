@@ -6,7 +6,10 @@ on:
         description: 'Qase Run ID'
         required: true
         type: string
-
+      case_ids:
+        description: 'Space separated Case IDs to run'
+        required: false
+        type: string
 jobs:
   test:
     timeout-minutes: 60
@@ -38,4 +41,4 @@ jobs:
       env:
         QASE_RUN_ID: ${{ github.event.inputs.run_id }}
         QASE_WEBHOOK_URL: 'http://164.68.113.171:3000/api/webhooks/playwright/reporter'
-      run: npx playwright test
+      run: npx playwright test ${{ github.event.inputs.case_ids }}
