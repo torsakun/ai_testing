@@ -1,0 +1,15 @@
+{
+  "name": "ai-testing",
+  "version": "1.0.0",
+  "description": "Playwright tests synced from Qase Clone",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.11.24"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}
