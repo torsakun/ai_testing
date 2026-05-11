@@ -14,11 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    # 1. ติดตั้ง Node พร้อมเปิดระบบ Cache ของ npm
+    # 1. ติดตั้ง Node (ลบบรรทัด cache: 'npm' ออก)
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
-        cache: 'npm' # <--- ตัวนี้จะช่วยจำ NPM Dependencies ไว้
         
     - name: Install dependencies
       run: npm install
