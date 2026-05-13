@@ -12,7 +12,7 @@ export default defineConfig({
   reporter: [
     ['list'],
     ['html'],
-    ['./qase-reporter.js'] // นี่คือตัว Custom Reporter ของเรา
+    ['./tessa-reporter.ts'] // นี่คือตัว Custom Reporter ของเรา
   ],
   use: {
     actionTimeout: 0,
