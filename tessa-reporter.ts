@@ -18,15 +18,20 @@ class TessaReporter implements Reporter {
       
       const logs = result.errors.map(e => e.message).join('\n') || 'Test completed successfully.';
 
+      console.log(`[TessaReporter] Reporting ${caseId} as ${status} to ${this.apiUrl}...`);
       try {
-        await fetch(`${this.apiUrl}/api/webhooks/playwright/reporter`, {
+        const res = await fetch(`${this.apiUrl}/api/webhooks/playwright/reporter`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ runId: this.runId, caseId, status, logs })
         });
+        const resBody = await res.text();
+        console.log(`[TessaReporter] Response: ${res.status} - ${resBody}`);
       } catch (err) {
-        console.error('Failed to report to TESSA:', err);
+        console.error(`[TessaReporter] Failed to report to TESSA:`, err);
       }
+    } else {
+      console.log(`[TessaReporter] Could not find caseId in title: "${test.title}" or file: "${test.location.file}"`);
     }
   }
 }
