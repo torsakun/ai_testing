@@ -26,7 +26,11 @@ class TessaReporter implements Reporter {
           body: JSON.stringify({ runId: this.runId, caseId, status, logs })
         });
         const resBody = await res.text();
-        console.log(`[TessaReporter] Response: ${res.status} - ${resBody}`);
+        if (!res.ok) {
+          console.error(`[TessaReporter] Error ${res.status}: ${resBody}`);
+        } else {
+          console.log(`[TessaReporter] Success: ${resBody}`);
+        }
       } catch (err) {
         console.error(`[TessaReporter] Failed to report to TESSA:`, err);
       }
