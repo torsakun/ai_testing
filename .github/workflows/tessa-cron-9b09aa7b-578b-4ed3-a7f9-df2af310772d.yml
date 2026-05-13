@@ -1,0 +1,12 @@
+name: Scheduled Pipeline - regression testing
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger-tessa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger TESSA
+        run: curl -X POST http://164.68.113.171:3000/api/projects/CSD/pipelines/9b09aa7b-578b-4ed3-a7f9-df2af310772d/trigger
