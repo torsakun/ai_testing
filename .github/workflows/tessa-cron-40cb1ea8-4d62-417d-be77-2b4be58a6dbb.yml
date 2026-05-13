@@ -1,0 +1,12 @@
+name: Scheduled Pipeline - sanity test
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger-tessa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger TESSA
+        run: curl -X POST http://164.68.113.171:3000/api/projects/CSD/pipelines/40cb1ea8-4d62-417d-be77-2b4be58a6dbb/trigger
