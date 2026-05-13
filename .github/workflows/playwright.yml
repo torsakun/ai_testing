@@ -8,6 +8,9 @@ on:
       case_ids:
         description: 'TESSA Case IDs (space separated)'
         required: true
+      api_url:
+        description: 'TESSA API URL'
+        required: true
 
 jobs:
   test:
@@ -30,7 +33,7 @@ jobs:
           npx playwright test -g "$PATTERN"
         env:
           TESSA_RUN_ID: ${{ github.event.inputs.run_id }}
-          TESSA_API_URL: ${{ secrets.TESSA_API_URL }}
+          TESSA_API_URL: ${{ github.event.inputs.api_url }}
 
       - name: Upload HTML Report to TESSA
         if: always()
@@ -38,7 +41,7 @@ jobs:
           if [ -d "playwright-report" ]; then
             cd playwright-report
             zip -r report.zip .
-            curl -X POST -F "file=@report.zip" ${{ secrets.TESSA_API_URL }}/api/webhooks/playwright/${{ github.event.inputs.run_id }}/report
+            curl -X POST -F "file=@report.zip" ${{ github.event.inputs.api_url }}/api/webhooks/playwright/${{ github.event.inputs.run_id }}/report
           else
             echo "No playwright-report directory found."
           fi
