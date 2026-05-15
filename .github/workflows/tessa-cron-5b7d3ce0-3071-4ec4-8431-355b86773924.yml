@@ -1,0 +1,12 @@
+name: Scheduled Pipeline - Regression Test 
+on:
+  schedule:
+    - cron: "0 17 * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger-tessa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger TESSA
+        run: curl -X POST https://tms-neon-omega.vercel.app/api/projects/CSC10/pipelines/5b7d3ce0-3071-4ec4-8431-355b86773924/trigger
