@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-test('Verify functionality 10 in Feature Module 1', async ({ page }) => {
+test('[CSC10-be2f] Verify functionality 10 in Feature Module 1', async ({ page }) => {
   // Step 1: Navigate to the website
-  await page.goto('https://socket9.com/en');
+  await page.goto('https://tms-neon-omega.vercel.app/');
 
   // Step 2: Log the title of the website
   const title = await page.title();
