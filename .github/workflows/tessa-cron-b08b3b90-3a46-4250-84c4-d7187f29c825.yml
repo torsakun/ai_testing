@@ -1,0 +1,12 @@
+name: Scheduled Pipeline - Smoke Test
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger-tessa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger TESSA
+        run: curl -X POST https://tms-neon-omega.vercel.app/api/projects/CSC10/pipelines/b08b3b90-3a46-4250-84c4-d7187f29c825/trigger
