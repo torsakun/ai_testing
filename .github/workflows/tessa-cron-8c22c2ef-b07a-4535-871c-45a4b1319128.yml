@@ -1,0 +1,12 @@
+name: Scheduled Pipeline - regression test
+on:
+  schedule:
+    - cron: "33 11 * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger-tessa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger TESSA
+        run: curl -X POST http://164.68.113.171:3000/api/projects/MS9/pipelines/8c22c2ef-b07a-4535-871c-45a4b1319128/trigger
