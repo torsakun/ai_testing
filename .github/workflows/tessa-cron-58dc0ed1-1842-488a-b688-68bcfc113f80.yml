@@ -1,0 +1,12 @@
+name: Scheduled Pipeline - full regression
+on:
+  schedule:
+    - cron: "25 12 * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger-tessa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger TESSA
+        run: curl -X POST http://164.68.113.171:3000/api/projects/MS9/pipelines/58dc0ed1-1842-488a-b688-68bcfc113f80/trigger
