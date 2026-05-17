@@ -1,0 +1,12 @@
+name: Scheduled Pipeline - Test Cron Job
+on:
+  schedule:
+    - cron: "20 11 * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger-tessa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger TESSA
+        run: curl -X POST http://164.68.113.171:3000/api/projects/MS9/pipelines/d9c0e945-0d78-4c2f-9b87-afff79f420dc/trigger
